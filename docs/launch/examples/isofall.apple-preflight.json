@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-23T19:23:22.836672+00:00",
+  "bundle_id": "com.jamesktan.isofall",
+  "team_id": "CUYMUDSGA4",
+  "goal": "upload_draft",
+  "local_status": "blocked",
+  "store_readiness": "unverified",
+  "account_or_store_writes_performed": false,
+  "blocking_local_checks": [
+    "distribution_profile",
+    "profile_bundle"
+  ],
+  "checks": [
+    {
+      "id": "project",
+      "status": "pass",
+      "detail": "Xcode project/workspace must exist",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "scheme",
+      "status": "unknown",
+      "detail": "Verify the configured scheme and Release targets with xcodebuild -list",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "xcode",
+      "status": "pass",
+      "detail": "Xcode 26.6\nBuild version 17F113",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "current_sdk_policy",
+      "status": "unknown",
+      "detail": "Verify Apple's current submission SDK requirements against this build",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "account_session",
+      "status": "unknown",
+      "detail": "Xcode account login and portal access require a live check",
+      "stage": "upload",
+      "next_actor": "owner"
+    },
+    {
+      "id": "privacy_policy_url",
+      "status": "fail",
+      "detail": "Supply the actual public HTTPS URL",
+      "stage": "review",
+      "next_actor": "owner"
+    },
+    {
+      "id": "support_url",
+      "status": "fail",
+      "detail": "Supply the actual public HTTPS URL",
+      "stage": "review",
+      "next_actor": "owner"
+    },
+    {
+      "id": "media_manifest",
+      "status": "pass",
+      "detail": "A media manifest is required before review; separately verify its hashes, dimensions and claims",
+      "stage": "review",
+      "next_actor": "agent"
+    },
+    {
+      "id": "archive",
+      "status": "pass",
+      "detail": "Expected one app in the Release archive",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "CFBundleIdentifier",
+      "status": "pass",
+      "detail": "IPA CFBundleIdentifier matches configured release",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "CFBundleShortVersionString",
+      "status": "pass",
+      "detail": "IPA CFBundleShortVersionString matches configured release",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "CFBundleVersion",
+      "status": "pass",
+      "detail": "IPA CFBundleVersion matches configured release",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "device_platform",
+      "status": "pass",
+      "detail": "App Store needs a device build, not a simulator build",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "distribution_profile",
+      "status": "fail",
+      "detail": "Root IPA profile type: development; development/ad-hoc/enterprise exports do not establish App Store readiness",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "profile_team",
+      "status": "pass",
+      "detail": "Profile team must match the configured personal/organization team",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "profile_bundle",
+      "status": "fail",
+      "detail": "Distribution profile must name the exact bundle ID",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "profile_expiry",
+      "status": "pass",
+      "detail": "Root IPA profile expiry checked",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "signature_entitlements",
+      "status": "unknown",
+      "detail": "Verify signatures, entitlements, nested bundles and distribution export with Xcode; profile inspection alone is insufficient",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "membership_agreements",
+      "status": "unknown",
+      "detail": "Verify active membership and current agreements",
+      "stage": "upload",
+      "next_actor": "owner"
+    },
+    {
+      "id": "app_record",
+      "status": "unknown",
+      "detail": "Verify/reuse the exact app record, bundle ID, team, capabilities and next build number",
+      "stage": "upload",
+      "next_actor": "agent"
+    },
+    {
+      "id": "listing_declarations",
+      "status": "unknown",
+      "detail": "Verify metadata/media, privacy, age rating, export compliance, review access, price and territories",
+      "stage": "review",
+      "next_actor": "agent"
+    },
+    {
+      "id": "review_and_availability",
+      "status": "unknown",
+      "detail": "Apple processing, review approval and storefront availability are separate observed states",
+      "stage": "release",
+      "next_actor": "agent"
+    },
+    {
+      "id": "release_authorization",
+      "status": "unknown",
+      "detail": "A config goal or authorization reference is not proof of user authorization; use the actual session/policy",
+      "stage": "review",
+      "next_actor": "owner"
+    }
+  ]
+}

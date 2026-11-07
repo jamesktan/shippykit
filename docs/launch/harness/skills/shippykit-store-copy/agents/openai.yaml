@@ -1,0 +1,4 @@
+interface:
+  display_name: "ShippyKit Store Copy"
+  short_description: "Refresh factual App Store and Google Play copy"
+  default_prompt: "Use $shippykit-store-copy to refresh this app’s store listing from its verified features and show the copy diff and local preview."

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "app": {
+    "project": "MyApp.xcodeproj",
+    "scheme": "MyApp",
+    "bundle_id": "com.yourcompany.myapp",
+    "team_id": "REPLACE_ME",
+    "version": "1.0.0",
+    "build_number": "1"
+  },
+  "access": {
+    "mode": "team_api_key",
+    "key_path_env": "APPLE_API_KEY_PATH",
+    "key_id_env": "APPLE_API_KEY_ID",
+    "issuer_id_env": "APPLE_API_ISSUER_ID"
+  },
+  "signing": { "style": "automatic" },
+  "release": {
+    "goal": "upload_draft",
+    "mode": "manual",
+    "not_before": null,
+    "authorization_ref": null
+  },
+  "listing": {
+    "privacy_policy_url": null,
+    "support_url": null
+  },
+  "artifacts": {
+    "archive": "release-output/builds/ios/MyApp.xcarchive",
+    "ipa": "release-output/builds/ios/export/MyApp.ipa",
+    "media_manifest": "release-output/manifest.json"
+  }
+}

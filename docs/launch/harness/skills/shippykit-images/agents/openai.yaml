@@ -1,0 +1,4 @@
+interface:
+  display_name: "ShippyKit Images"
+  short_description: "Create, revise and compare app and store imagery"
+  default_prompt: "Use $shippykit-images to refresh this app’s imagery, preserve earlier directions and show the revisions in the local preview."

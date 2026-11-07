@@ -1,0 +1,5 @@
+#!/bin/sh
+# Install the bundled project workflow; no downloads or store operations.
+set -eu
+shippykit_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec python3 "$shippykit_root/docs/launch/harness/install.py" "$@"

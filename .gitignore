@@ -1,0 +1,11 @@
+# dependencies and caches
+node_modules/
+__pycache__/
+
+# env files
+.env
+.env.*
+
+# logs and OS noise
+*.log
+.DS_Store

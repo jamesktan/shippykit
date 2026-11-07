@@ -1,0 +1,1 @@
+Use ShippyKit to resume this project's release from its saved state. Install the latest build on my phone and upload store drafts, preserving existing decisions and asking before missing-tool installation; commit and push ready changes to my personal repo's main.

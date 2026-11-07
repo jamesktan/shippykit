@@ -1,0 +1,4 @@
+interface:
+  display_name: "ShippyKit"
+  short_description: "Resume mobile releases from existing project state"
+  default_prompt: "Use $shippykit to inspect this project’s existing release state and continue the authorized deployment from its next unfinished step."

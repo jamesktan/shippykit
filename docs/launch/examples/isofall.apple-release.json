@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "app": {
+    "project": "Isofall.xcodeproj",
+    "scheme": "Isofall",
+    "bundle_id": "com.jamesktan.isofall",
+    "team_id": "CUYMUDSGA4",
+    "version": "1.0.0",
+    "build_number": "5"
+  },
+  "access": { "mode": "xcode_account" },
+  "signing": { "style": "automatic" },
+  "release": {
+    "goal": "upload_draft",
+    "mode": "manual",
+    "not_before": null,
+    "authorization_ref": null
+  },
+  "listing": { "privacy_policy_url": null, "support_url": null },
+  "artifacts": {
+    "archive": "release-output/builds/ios/Isofall.xcarchive",
+    "ipa": "release-output/builds/ios/export/Isofall.ipa",
+    "media_manifest": "release-output/manifest.json"
+  }
+}

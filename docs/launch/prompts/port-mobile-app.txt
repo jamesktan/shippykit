@@ -1,0 +1,56 @@
+Port this project to the other mobile platform: iOS to Android, or Android to iOS. Work in this repository and deliver maintainable target source, builds, tests, and parity evidence. Use docs/launch/mobile-porting.md if available. If my request is only to draft or plan, stop after the inventory, behavior contract, mappings, and work plan; do not implement the target app.
+
+Keep the existing source app working. Preserve its product behavior, brand, content, assets, timing, and native feel; adapt target navigation, system back, accessibility, permissions, and device behavior appropriately. Do not redesign the product, invent missing features, or create a hosted conversion platform. Do not treat generated source as proof that the port works.
+
+1. DISCOVER AND ESTABLISH A BASELINE
+
+Read local instructions, source, tests, manifests, build scripts, and assets. Infer the source and requested target from the repository and this conversation. If only one mobile platform exists, the default target is the other. If both exist, fill the requested target's gaps rather than making another app. Ask only about a genuinely unresolved target or another blocker; continue independent inventory work meanwhile.
+
+For a native app, default to native target code: Kotlin/Compose for Android or Swift/SwiftUI for iOS. Reuse an existing cross-platform stack and its target when present. For Unity/Godot, preserve the editor version, scenes, game code, assets, and build system; repair target profiles and unsupported plugins. For a native game/custom renderer, plan a small renderer spike after identifying the domain rules. Do not blindly transpile platform view or graphics APIs, upgrade a working engine, or migrate the source UI to a new framework.
+
+Record the source revision, dirty-file hashes if needed, app identifiers, toolchain and dependency versions, minimum OS versions, build/run commands, principal journeys, persistence, backend, auth, permissions, purchases, links, push, background work, audio, dependencies, and asset licenses. Build and run the source with safe data; record actual baseline captures and tests. Clearly mark unavailable tools or untested behavior. Keep credentials and private production data out of repository evidence.
+
+2. CREATE THE CONTRACT AND FILE PLAN
+
+Keep the original app in its existing location. Reuse the repository's target layout; otherwise create only android/ or ios/ for the missing platform. Create:
+
+porting/manifest.json: direction, source revision/path, target path, contract version, toolchains, exact commands.
+porting/inventory/: source.json, journeys.md, assets.csv with paths, hashes and provenance.
+porting/behavior/: contract.md and fixture.schema.json.
+porting/mappings/: platforms.md and dependencies.md.
+porting/fixtures/semantic/: shared source-derived fixtures.
+porting/runners/: commands/adapters for source, target, and comparison.
+porting/evidence/<run-id>/: source and target logs/captures/output plus parity.json.
+porting/decisions.md and porting/work-plan.md: real blockers, adaptations, owners, dependencies and completion gates.
+
+Specify platform-neutral inputs, transitions, outputs, errors, persistence, migrations, time, randomness, effects, and service contracts. Use the source implementation and existing tests to generate expected fixtures; independently check critical invariants and flag source bugs. Freeze integer widths, unsigned overflow, sorting, random algorithm and draw order, units, serialization and justified numeric tolerances. Encode wide integer seeds as strings when JSON numbers would lose precision.
+
+Define each capability as source behavior -> target implementation -> acceptance test -> equivalent/adapted/blocked/not applicable. Cover permissions and denial, protected data, offline use, login/logout/recovery and identity, purchases/restoration/refunds, background scheduling, deep links, push registration/routing, backend authorization/errors/idempotency, accessibility, audio focus/interruption/mute, and asset/dependency rights. Platform credentials, local storage, purchase receipts, and notification tokens do not automatically transfer. Reuse existing backend contracts. Surface platform-exclusive features and material ownership/license/entitlement decisions without silently removing them.
+
+3. IMPLEMENT WITH PARALLEL OWNERSHIP
+
+Use parallel workers for disjoint files when available. The coordinator owns contract versions, shared configuration, dependency locks, root integration and final verification. Assign exact paths and frozen interfaces to source/fixtures, target core, target platform adapters, target UI/renderer, and independent verification/release workers. Serialize shared-device use, large builds, engine imports and signing. No worker may rewrite expected outcomes to pass its own implementation. Return changes, commands, evidence paths and gaps from every worker.
+
+First create the smallest buildable target and its domain logic. Inject clock/randomness/storage/service ports where necessary. Run shared semantic fixtures on both source and target before building the complete target UI. Keep any source fixture-export seam small and rerun source regressions. Fix discrepancies rather than replacing reference fixtures with target outputs.
+
+For a game, run a bounded target renderer spike in parallel with domain work. Verify real geometry, coordinates, camera, occlusion, input, first frame, lifecycle and performance before expanding it. Reuse licensed graphics/sounds and preserve effects; implement target playback/resource ownership instead of translating source media APIs literally.
+
+Then implement native screens and adapters against the verified core. Consult current official platform documentation for the actual SDK/OS versions, and record technical mapping sources. Ask the owner only when a material product, account, license, cost or platform-capability decision genuinely blocks a feature. Finish independent work while that decision is pending.
+
+4. PROVE PARITY
+
+For each requirement, parity.json records pass/fail/blocked/not_run, fixture ID, source/target outputs, differences, revisions, binary identity, commands, toolchain/device versions and evidence paths. Do not report complete parity while required checks are blocked, skipped or mock-only.
+
+After semantic parity, exercise actual source and target journeys: cold launch with visible rendered content, navigation/back, input, accessibility/text scaling, window changes, pause/resume, process recreation where applicable, persistence, permission denial, offline/error states, service flows and sound. Inspect real screenshots/video and listen to audio. Pixel identity is not required across native platforms; behavior and documented visual/platform adaptations are. Detect blank canvases and missing assets. Do not use mocks, fixture artifacts or source-platform captures as target product evidence.
+
+If this is Isofall, verify the current source revision rather than an older four-by-four description: 8x8x10 well; six regular shapes and a separate six-piece bag; SplitMix64 with exact wrapping/rejection/draw semantics; combined 35% probability of single-cube plane/blast/color specials; six palette colors and color cycling; plane behavior at max(0, landing.y-1); blast offsets -3...4 on each axis clipped to the well; special removal, column compaction then full-layer clearing; scoring, ghost, pause/restart, and game-over. Reuse the original WAV assets and event/throttle/four-voice/mute/interruption behavior. Replace the SceneKit adapter through a renderer spike, keep gameplay offline, and add no accounts/networking/ads/purchases. Do not claim identical iOS Silent-switch and Android audio-focus behavior; document and test the target policy.
+
+5. HAND OFF TO THE EXISTING LAUNCH WORKFLOW
+
+After parity, use the repository's existing launch prompt to prepare release-output/: runnable/release builds by platform, original captures, platform-specific store images/video/listing.md, manifest.json, actual commands and needs-input.md. Use actual target footage and supported target claims. Check current official store requirements. Keep fixture/capture-only hooks out of release builds.
+
+For iOS, follow docs/launch/apple-deployment.md and docs/launch/prompts/deploy-apple.txt when present, including the documented tools/apple-preflight.py invocation and release-output/apple-preflight.json result. Missing signing does not invalidate a runnable capture build, but it does block a signed distribution claim. For Android, retain the runnable APK, available release artifact, exact build commands and signing blockers.
+
+This porting request prepares implementation and launch assets; store upload remains the existing launch workflow's separately requested step 2. Do not submit for review or release publicly without my explicit instruction. Honor existing session instructions about commits and pushes; do not create a new approval ritual for ordinary local work.
+
+Finish with target paths, completed behavior/platform parity, actual build and capture evidence, documented adaptations, and remaining concrete blockers. State clearly when only a plan was requested and no target implementation was created.

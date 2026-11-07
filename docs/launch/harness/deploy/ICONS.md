@@ -1,0 +1,49 @@
+# App icons
+
+Follow [README.md](README.md) and the user's existing scope. Inspect icons before the final build and before assembling the [release preview](PREVIEW.md). Reuse a valid existing brand icon. Generate a missing icon when needed; do not replace a working icon or change the brand merely to refresh the preview.
+
+## Inspect the icon the app actually uses
+
+1. Read the actual target/build configuration, assets and existing brand sources. For iOS, resolve the selected app icon name, asset-catalog `Contents.json` or Icon Composer `.icon`, target membership, configurations and appearance variants. For Android, follow the merged manifest's `android:icon` and optional `android:roundIcon` through flavor resources, adaptive XML and legacy mipmaps. For Unity, inspect the pinned editor's Player settings and any export/postprocess overrides, then inspect the generated native project.
+2. Open the selected images and inspect the installed app's launcher icon when an authorized runnable build/device is available. Distinguish missing files, empty or mismatched slots, template placeholders, invalid dimensions/encoding, and an icon that exists but is not included in the build. A filename or a preview thumbnail alone proves none of these. Record findings and exact source mappings in APP.md/STATE.md.
+3. Reuse valid artwork and repair configuration/export mistakes while preserving its identity. Keep originals. If an apparent placeholder might be intentional branding, ask before replacing it. A new icon is not permission to install tools, start an unapproved port, upload to stores or publish a website; follow the controller's existing gates.
+
+## Create only the missing artwork
+
+Infer the app's purpose, audience, palette and recognizable subject from its real UI, content and brand assets. Aim for one legible silhouette, strong contrast and clear margins at small launcher sizes; avoid tiny text, misleading badges and invented features. An illustrative icon may symbolize the product, but must never be presented as an actual gameplay screenshot.
+
+Use the available **imagegen skill and built-in `image_gen` tool** for new raster artwork or image edits. Inspect a local edit target with `view_image` first, identify reference versus edit-target images, and state what must remain unchanged. For an existing editable vector/code icon, prefer its native authoring path instead of replacing it with a raster imitation. Use installed tools for deterministic resizing, encoding and platform assembly; do not substitute a generic placeholder for requested artwork.
+
+Save a concise prompt containing the product facts, visual direction, subject, intended icon layers/platform, composition, background/transparency needs, exact text if any, and exclusions. Request genuine transparency for a foreground layer and preserve its alpha. Inspect the result at full size and small launcher size, then make targeted corrections. Do not claim the generator produced a native Icon Composer document or adaptive resource set: assemble and validate those separately.
+
+Built-in generation does not require the user to provide an API key. If it is unavailable or fails, record the blocker and continue independent work. Explain that a CLI/API fallback requires explicit opt-in, credentials and potentially paid usage; obtain permission before using it or installing new tools. If chosen, follow the skill's supported CLI workflow rather than inventing an SDK runner. Never request secret values in chat.
+
+Copy the selected result from the tool's returned output into the project; built-in defaults may be under `$CODEX_HOME/generated_images/`, so do not rely on a destination argument or leave the only copy there. Save an unmodified original/master and versioned platform exports under `release-output/icons/`. Preserve native source/layer files where applicable. Do not overwrite an existing asset unless replacement was requested; add a versioned file and retain the prior mapping.
+
+## Export for the actual target
+
+Requirements below were checked on 2026-10-23. Recheck the linked official guidance for the project's installed toolchain, minimum OS, target families and store before export; do not apply one flattened PNG recipe to every platform.
+
+| Destination | Assembly and validation |
+| --- | --- |
+| iOS/iPadOS asset catalog | Retain a working catalog route. A configured single-size set can derive variants from a 1024×1024 image; otherwise fill the actual required wells. Check Release's selected primary/alternate sets, appearance-specific alpha and color requirements, and supported device families. Dark/tinted variants have different treatment; do not indiscriminately flatten their transparency. The App Store icon comes through the app's configured icon assets, not a screenshot upload. [Apple asset-catalog guide](https://developer.apple.com/documentation/xcode/configuring-your-app-icon). |
+| iOS/iPadOS Icon Composer | When using this route, retain separate artwork layers and the native `.icon` source, match its name to the target's App Icon setting, and inspect supported appearances and older-OS rendering. Apple supplies the final mask/effects. Adding `.icon` can replace catalog-based rendering, including generated older-OS variants; do not migrate a working icon implicitly. [Apple Icon Composer guide](https://developer.apple.com/documentation/xcode/creating-your-app-icon-using-icon-composer). |
+| Android launcher | Provide adaptive foreground/background resources and a suitable monochrome layer for themed appearance; retain legacy/round resources needed by supported devices. Adaptive layers use a 108×108 dp canvas with essential artwork inside the central 66×66 dp safe area; export density-correct bitmaps or native vectors, not 108-pixel files for every density. Verify manifest/resource references and mask/theme previews. [Android adaptive icons](https://developer.android.com/develop/ui/compose/system/icon_design_adaptive). |
+| Google Play listing | Export a separate 512×512, 32-bit PNG with alpha channel, sRGB, at most 1024 KB. Full-square artwork lets Play apply its mask and outer shadow; do not bake those in. This store asset does not replace the APK/AAB launcher resources. [Play icon specifications](https://developer.android.com/distribute/google-play/resources/icon-design-specifications), [listing requirements](https://support.google.com/googleplay/android-developer/answer/9866151?hl=en). |
+| Unity exports | Assign icon textures/layers through the pinned editor's platform Player settings or the project's reproducible build script. Verify both the exported Xcode catalog/icon selection and Android resources; changing only a disposable export will be lost on regeneration. Use the manual matching the project version; [Unity iOS settings](https://docs.unity3d.com/6000.0/Documentation/Manual/class-PlayerSettingsiOS.html) and [Android settings](https://docs.unity3d.com/6000.0/Documentation/Manual/class-PlayerSettingsAndroid.html) are starting references, not an instruction to upgrade. |
+
+## Integrate and prove the result
+
+Wire the selected assets into the real app before its final build. Decode every exported raster and verify dimensions, format, color/alpha rules and masks. Build the affected target with its real asset compiler, inspect its installed launcher appearance, and record the observed configuration/device/OS. If toolchain or device access is blocked, keep that verification pending rather than marking the icon integrated from a website rendering.
+
+An icon change invalidates the previous binary's icon evidence. Rebuild/archive/export and recheck signatures, identity and hashes as applicable; never edit a signed IPA/AAB in place. Use a new build number when required by the existing release/store history. Recapture launcher screens or other media showing the changed icon. Unaffected gameplay captures may be retained only with an explicit source-equivalence check; do not relabel old binary evidence as freshly tested. Store upload and readback remain in the authorized store workflow.
+
+## Manifest and preview handoff
+
+Extend the project's release manifest with real, verified raster exports. Use `kind: app_icon` for a primary icon representation, `store_icon` for a store-specific export, and `launcher_icon` for a launcher representation. Kind describes intended use, not proof of installation or store acceptance. Each entry records:
+
+- A relative `path` within `release-output/`, computed `sha256` and `bytes`, and `platform` (`ios` or `android`); include `locale` only for a genuinely localized asset.
+- Actual `media` dimensions (`width`/`height`) and format; record appearance/layer/density where needed to distinguish variants. Do not invent hashes or dimensions for pending outputs.
+- Provenance and integration evidence through the project's existing evidence convention: original source/hash, generated versus reused/edited status, exact prompt and reference roles when generated, tool actually used, export commands, target mapping, source revision and verified build identity. Keep unavailable model details or license/ownership status explicitly unknown; generation is not trademark clearance or proof of exclusive rights.
+
+Keep prompts, source masters, native documents, build logs, credential references and other internal evidence outside the public preview directory. [PREVIEW.md](PREVIEW.md) controls its safe allowlist: copy only selected validated raster exports, render the app icon beside genuine platform captures, and clearly label unintegrated candidates. Never classify an icon as a screenshot or use it to fill a missing capture. A preview does not prove the launcher or store has updated; preserve those separate statuses in STATE.md and finish with exact saved paths and outstanding checks.
